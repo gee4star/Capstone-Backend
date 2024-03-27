@@ -91,7 +91,7 @@ app.use('/api/auth', authRoute);
 //   }
 // }
 
-//Create DB Entries
+//Create all the  DB Entries
 app.get('/newdb', async (req, res) => {
   await Recipes.deleteMany({});
   await Recipes.create(recipes);
