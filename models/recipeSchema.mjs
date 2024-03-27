@@ -2,10 +2,7 @@ import mongoose from 'mongoose';
 
 //recipeSchema
 const recipeSchema = new mongoose.Schema({
-  id: {
-    type: Number,
-    required: true,
-  },
+  
   title: {
     type: String,
     required: true,
@@ -20,5 +17,5 @@ const recipeSchema = new mongoose.Schema({
   },
   
 });
-
-export default mongoose.model('Recipes', recipeSchema);
+const Recipes = mongoose.model('Recipes', recipeSchema);
+export default Recipes 

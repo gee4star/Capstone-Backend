@@ -7,17 +7,28 @@ import Recipes from './models/recipeSchema.mjs';
 import fruits from './utilities/data.js';
 import recipes from './utilities/data.js';
 import axios from "axios";
+import cors from "cors";
+import userRoute from './routes/api/users.js';
+import authRoute from './routes/api/auth.js';
 
+//Set API Key
 const apiKeySpring = process.env.apiKey || "f9cabc1a80b4416eab94bd0e6c909f3b"
 const apiKey = apiKeySpring.replace(/"/g, '');
+
+
 //Configurations
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 2000;
+const PORT = process.env.PORT || 5000;
 await mongoose.connect(process.env.MONGO_URI);
+
+
 
 //Middleware
 app.use(express.json());
+app.use(cors())
+app.use('/api/users', userRoute);
+app.use('/api/auth', authRoute);
 
 //TODO Define search input, this comes from frontend 
 // let searchInput 
@@ -100,6 +111,16 @@ app.get( '/', async (req, res) => {
     res.status(500).json({ msg: 'Get / Server Error' });
   }
 })
+//Get request gets personal recipes list 
+app.get( '/personalrecipes', async (req, res) => {
+  try{
+    const personalRecipes = await Recipes.find({})
+    res.json(personalRecipes)
+  }catch(err){
+    console.error(err);
+    res.status(500).json({ msg: 'Get / Server Error' });
+  }
+})
 
 //Create
 app.post('/', async (req, res) => {
@@ -176,66 +197,6 @@ app.delete('/:id', async (req, res) => {
 //           })
 //         setMovieInfo(res.data)
 
-//Routes
-//Seed Routes
-app.get('/seed', async (req, res) => {
-  await Fruits.deleteMany({});
-  await Fruits.create(fruits);
-
-  res.send(`Database Seeded`);
-});
-
-//Create
-app.post('/', async (req, res) => {
-  try {
-    let newFruit = new Fruits(req.body);
-    await newFruit.save();
-
-    res.json(newFruit);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: 'Server Error' });
-  }
-});
-
-//Read
-app.get('/', async (req, res) => {
-  try {
-    const allFruits = await Fruits.find({});
-    res.json(allFruits);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: 'Server Error' });
-  }
-});
-
-//Update
-app.put('/:id', async (req, res) => {
-  try {
-    const updatedFruit = await Fruits.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-
-    res.json(updatedFruit);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: 'Server Error' });
-  }
-});
-
-//Delete
-app.delete('/:id', async (req, res) => {
-  try {
-    await Fruits.findByIdAndDelete(req.params.id);
-
-    res.status(200).json({ msg: 'Item Deleted' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: 'Server Error' });
-  }
-});
 
 //Error checking middleware
 app.use((err, _req, res, next) => {
