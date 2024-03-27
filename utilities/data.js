@@ -8,7 +8,7 @@ const fruits = [
 
 // TODO: Create recipe data structure 
 const recipes = [
-  { title: 'Recipe 1 banana',  image: "https://img.spoonacular.com/recipes/644817-556x370.jpg", imageType: "jpg" },
+  { title: 'Recipe 1 Vegan White Bean Soup',  image: "https://healthiersteps.com/wp-content/uploads/2017/12/vegan-white-bean.jpg", imageType: "jpg" },
   { title: 'Recipe 2 stawberry',  image: "https://img.spoonacular.com/recipes/644817-556x370.jpg", imageType: "jpg"  },
   { title: 'Recipe 3 grapes',  image: "https://img.spoonacular.com/recipes/644817-556x370.jpg", imageType: "jpg" },
   { title: 'Recipe 4 cantalope',  image: "https://img.spoonacular.com/recipes/644817-556x370.jpg", imageType: "jpg" },
