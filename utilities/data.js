@@ -5,7 +5,7 @@ const fruits = [
   { name: 'kiwi', age: 2, readyToEat: true },
   { name: 'dragon fruit', age: 88, readyToEat: false },
 ];
-
+// lines 1 through 7 are Dylans resource code
 // TODO: Create recipe data structure 
 const recipes = [
   { title: 'Recipe 1 Vegan White Bean Soup',  image: "https://healthiersteps.com/wp-content/uploads/2017/12/vegan-white-bean.jpg", imageType: "jpg" },
